@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="chart" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d9ff"/>
+      <stop offset="100%" style="stop-color:#00ff88"/>
+    </linearGradient>
+    <linearGradient id="arrow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ff88"/>
+      <stop offset="100%" style="stop-color:#88ff00"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="240" fill="none" stroke="url(#chart)" stroke-width="8"/>
+  
+  <!-- DCA bars representing periodic investments -->
+  <rect x="100" y="320" width="50" height="80" rx="6" fill="url(#chart)" opacity="0.6"/>
+  <rect x="170" y="280" width="50" height="120" rx="6" fill="url(#chart)" opacity="0.7"/>
+  <rect x="240" y="230" width="50" height="170" rx="6" fill="url(#chart)" opacity="0.8"/>
+  <rect x="310" y="180" width="50" height="220" rx="6" fill="url(#chart)" opacity="0.9"/>
+  
+  <!-- Upward arrow indicating growth -->
+  <path d="M380 300 L380 140 L340 180 L380 100 L420 180 L380 140" 
+        fill="none" stroke="url(#arrow)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="380,100 340,160 380,140 420,160" fill="url(#arrow)"/>
+  
+  <!-- Dollar sign -->
+  <text x="195" y="180" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="url(#arrow)">$</text>
+</svg>

@@ -1,0 +1,16 @@
+# Cron container for running the trading bot scheduler
+FROM oven/bun:1.3.12-alpine
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+# --ignore-scripts skips prisma generate (not needed for cron)
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production --ignore-scripts
+
+# Copy the cron script
+COPY scripts/cron.ts ./scripts/
+COPY tsconfig.json ./
+
+CMD ["bun", "run", "scripts/cron.ts"]
+

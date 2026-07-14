@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Transaction {
+  id      String   @id @default(uuid())
+  date    DateTime @default(now()) @map("date")
+  amount  Float    @map("amount")
+  price   Float    @map("price")
+  reason  String   @map("reason") @db.VarChar(256)
+  dcaType DCAType  @map("dca_type")
+
+  @@index([dcaType])
+  @@index([date])
+  @@map("transactions")
+}
+
+model MultiplierConfiguration {
+  id         String         @id @default(uuid()) @map("id")
+  type       MultiplierType @unique @map("multiplier_type")
+  value      String         @map("value") @db.VarChar(64)
+  multiplier Float          @map("multiplier")
+  enabled    Boolean        @default(true) @map("enabled")
+  updatedAt  DateTime       @default(now()) @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([updatedAt])
+  @@map("multiplier_configuration")
+}
+
+enum MultiplierType {
+  MOVING_AVERAGE
+  LTH_REALIZED_PRICE
+  AVERAGE_REALIZED_PRICE
+  LTH_BUYING
+}
+
+enum DCAType {
+  FIXED
+  PROGRAMATIC
+}
+
+model AppConfiguration {
+  id                   String   @id @default("default") @map("id")
+  baseAmountToPurchase Float    @default(5) @map("base_amount_to_purchase")
+  hyperliquidSymbol    String   @default("BTC") @map("hyperliquid_symbol")
+  lowBalanceThreshold  Float    @default(100) @map("low_balance_threshold")
+  cronSecret           String   @default("") @map("cron_secret")
+  discordWebhookUrl    String   @default("") @map("discord_webhook_url")
+  discordEnabled       Boolean  @default(true) @map("discord_enabled")
+  hyperliquidPrivateKey    String    @default("") @map("hyperliquid_private_key")
+  hyperliquidWalletAddress String    @default("") @map("hyperliquid_wallet_address")
+  hyperliquidKeyCreatedDate DateTime? @map("hyperliquid_key_created_date")
+  configWarningWeeks   Int      @default(1) @map("config_warning_weeks")
+  configDangerWeeks    Int      @default(2) @map("config_danger_weeks")
+  updatedAt            DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("app_configuration")
+}
